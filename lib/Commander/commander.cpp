@@ -1,6 +1,8 @@
 #include <commander.h>
 
 Commander::Commander(){
+    serial = &SoftwareSerial(SERIAL_RX_PIN, SERIAL_TX_PIN, false);
+    serial->begin(SERIAL_BAUDRATE);
 }
 
 void Commander::Send(uint8_t command, uint8_t subcommand, uint8_t data){
@@ -27,6 +29,6 @@ void Commander::Send(uint8_t command, uint8_t subcommand, uint8_t data){
     data = data & DATA_MASK; // Filtra los 7 bits menos significativos. Ej: 0b01111111
 
     // Envio los dos bytes
-    Serial.write(status);
-    Serial.write(data);
+    serial->write(status);
+    serial->write(data);
 }
