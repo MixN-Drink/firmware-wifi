@@ -18,7 +18,7 @@
 #define DATA_MASK 0b01111111
 
 #define SERIAL_TX_PIN   12
-#define SERIAL_RX_PIN   14
+#define SERIAL_RX_PIN   13
 #define SERIAL_BAUDRATE 9600
 
 class Commander {
