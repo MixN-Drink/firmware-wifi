@@ -7,10 +7,11 @@
 #include <command.h>
 #include <EEPROM.h>
 #include <wifi.h>
+#include <commander.h>
 
 class Controller {
     public:
-        Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wifi);
+        Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wifi, Commander *_commander);
         void ping(void);
         void setWiFi(void);
         void prepare(void);
@@ -18,6 +19,7 @@ class Controller {
         ESP8266WebServer *httpServer;
         Logger *logger;
         WIFI *wifi;
+        Commander *commander;
 };
 
 #endif

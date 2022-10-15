@@ -1,9 +1,10 @@
 #include <controller.h>
 
-Controller::Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wifi){
+Controller::Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wifi, Commander *_commander){
     httpServer = _httpServer;
     logger = _logger;
     wifi = _wifi;
+    commander = _commander;
 }
 
 void Controller::ping(void){
@@ -44,11 +45,17 @@ void Controller::prepare(void){
     JsonArray slots = json["slots"];
 
     for(uint8_t i=0; i<4; i++){
+        uint8_t slot = slots[i]["slot"].as<uint8_t>();
+        uint8_t percentage = slots[i]["percentage"].as<uint8_t>();
+        if(percentage == 0) continue;
+
         logger->Write("Slot: ");
-        logger->Write(slots[i]["slot"].as<int>());
+        logger->Write(slot);
         logger->Write(" ");
-        logger->Write(slots[i]["percentage"].as<int>());
+        logger->Write(percentage);
         logger->Writeln("%");
+
+        commander->Send(COMMAND_PUMP, slot, percentage);
     }
 
     httpServer->send(200, F("text/plain"), F("Preparing"));
