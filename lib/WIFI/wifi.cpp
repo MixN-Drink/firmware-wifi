@@ -4,6 +4,9 @@ WIFI::WIFI(Logger *_logger) {
 	logger = _logger;
 	memset(ssid, 0, SSID_LENGTH);
 	memset(password, 0, PASSWORD_LENGTH);
+	localIP = IPAddress(AP_IP);
+	gateway = IPAddress(192,168,0,1);
+	subnet = IPAddress(255,255,255,0);
 }
 void WIFI::begin(void) {
 	uint8_t retries = 0;
@@ -25,6 +28,7 @@ void WIFI::begin(void) {
 	// Connect
 	logger->Write(F("Connecting to "));
 	logger->Writeln(rSsid);
+	WiFi.config(localIP, gateway, subnet);
 	WiFi.begin(rSsid, rPassword);
 	while(WiFi.waitForConnectResult() != WL_CONNECTED && retries < MAX_RETRIES) {
 		retries++;
@@ -38,6 +42,11 @@ void WIFI::begin(void) {
 	// If not connected then create AP
 	if (!WiFi.isConnected()) {
 		logger->Writeln(F("Failed to connect! Creating AP..."));
+		bool configApplied = WiFi.softAPConfig(localIP, gateway, subnet);
+		if(!configApplied){
+			logger->Writeln(F("Failed to config AP! Please reboot."));
+			while(1);
+		}
 		bool apCreated = WiFi.softAP(AP_SSID, AP_PASS);
 		if(!apCreated){
 			logger->Writeln(F("Failed to create AP! Please reboot."));

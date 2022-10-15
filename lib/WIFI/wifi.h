@@ -7,11 +7,12 @@
 #include <EEPROM.h>
 #include "credentials.h"
 
-#define DEVICE_NAME "BarBot"
+#define DEVICE_NAME "MixNDrink"
 #define WIFI_RETRY_DELAY 100
 #define MAX_RETRIES 1
-#define AP_SSID "BarBot"
-#define AP_PASS "babo1234"
+#define AP_SSID "MixNDrink"
+#define AP_PASS "mixndrink"
+#define AP_IP 192,168,0,100
 
 #define SSID_LENGTH 32
 #define PASSWORD_LENGTH 32
@@ -32,6 +33,9 @@ class WIFI {
         Logger *logger;
         char ssid[SSID_LENGTH];
         char password[PASSWORD_LENGTH];
+        IPAddress localIP;
+        IPAddress gateway;
+        IPAddress subnet;
 };
 
 #endif
