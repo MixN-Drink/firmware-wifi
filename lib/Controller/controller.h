@@ -9,6 +9,8 @@
 #include <wifi.h>
 #include <commander.h>
 
+#define HTTP_STATUS_OK 200
+
 class Controller {
     public:
         Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wifi, Commander *_commander);

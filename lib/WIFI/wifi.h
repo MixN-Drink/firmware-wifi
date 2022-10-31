@@ -5,7 +5,6 @@
 #include <ESP8266mDNS.h>
 #include <logger.h>
 #include <EEPROM.h>
-#include "credentials.h"
 
 #define DEVICE_NAME "MixNDrink"
 #define WIFI_RETRY_DELAY 100

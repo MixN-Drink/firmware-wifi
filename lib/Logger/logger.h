@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-#define SERIAL_BAUDRATE 9600
+#define LOGGER_BAUDRATE 115200
 
 class Logger {
     public:

@@ -42,14 +42,18 @@ void WIFI::begin(void) {
 	// If not connected then create AP
 	if (!WiFi.isConnected()) {
 		logger->Writeln(F("Failed to connect! Creating AP..."));
-		bool configApplied = WiFi.softAPConfig(localIP, gateway, subnet);
+		IPAddress apip(192,168,0,100);
+		IPAddress apgw(0,0,0,0);
+		IPAddress apsn(255,255,255,0);
+		
+		/*bool configApplied = WiFi.softAPConfig(apip, apgw, apsn);
 		if(!configApplied){
-			logger->Writeln(F("Failed to config AP! Please reboot."));
+			logger->Writeln(F("Failed to config AP! Rebooting..."));
 			while(1);
-		}
+		}*/
 		bool apCreated = WiFi.softAP(AP_SSID, AP_PASS);
 		if(!apCreated){
-			logger->Writeln(F("Failed to create AP! Please reboot."));
+			logger->Writeln(F("Failed to create AP! Rebooting..."));
 			while(1);
 		}
 		logger->Writeln(F("Created!"));

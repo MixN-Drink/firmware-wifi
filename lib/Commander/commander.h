@@ -19,7 +19,7 @@
 
 #define SERIAL_TX_PIN   12
 #define SERIAL_RX_PIN   13
-#define SERIAL_BAUDRATE 9600
+#define SERIAL_BAUDRATE 115200
 
 class Commander {
     public:

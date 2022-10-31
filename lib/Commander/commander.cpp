@@ -14,9 +14,8 @@ void Commander::Send(uint8_t command, uint8_t subcommand, uint8_t data){
     command = command & COMMAND_MASK; // Filtra los 4 bits menos significativos. Ej: 0b00001111
 
     // Obtengo el subcomando
-    subcommand = subcommand << SUBCOMMAND_SHIFT; // Mueve los 3 bits hacia la izq 4 posiciones. Ej: 0b01110000
-
-    subcommand = subcommand & SUBCOMMAND_MASK; // Filtra solo 3 bits menos significativos. Ej: 0b00000111
+    subcommand = subcommand << SUBCOMMAND_SHIFT; // Mueve los 3 bits hacia la izq 4 posiciones. Ej: 0b11110000
+    subcommand = subcommand & SUBCOMMAND_MASK; // Filtra solo 3 bits del subcomando. Ej: 0b01110000
 
     // Agrego el comando y el subcomando al status
     status = status | command | subcommand; // Suma los bits de cada variable de manera independiente.
@@ -32,4 +31,9 @@ void Commander::Send(uint8_t command, uint8_t subcommand, uint8_t data){
     // Envio los dos bytes
     serial.write(status);
     serial.write(data);
+
+    Serial.print("Send: 0x");
+    Serial.print(status, HEX);
+    Serial.print(" 0x");
+    Serial.println(data, HEX);
 }

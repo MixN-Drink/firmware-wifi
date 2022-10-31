@@ -1,7 +1,7 @@
 #include "logger.h"
 
 Logger::Logger(){
-    Serial.begin(SERIAL_BAUDRATE);
+    Serial.begin(LOGGER_BAUDRATE);
 }
 
 void Logger::Write(char *msg){

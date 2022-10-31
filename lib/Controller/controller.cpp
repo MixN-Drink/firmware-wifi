@@ -8,9 +8,11 @@ Controller::Controller(ESP8266WebServer *_httpServer, Logger *_logger, WIFI *_wi
 }
 
 void Controller::ping(void){
-    httpServer->send(200, F("text/plain"), F("pong"));
+    logger->Writeln(F("Handling: ping"));
+    httpServer->send(HTTP_STATUS_OK, F("text/plain"), F("pong"));
 }
 void Controller::setWiFi(void){
+    logger->Writeln(F("Handling: setWiFi"));
     String body = httpServer->arg("plain");
 
     StaticJsonDocument<200> json;
@@ -23,14 +25,20 @@ void Controller::setWiFi(void){
     const char *ssid = json["ssid"];
     const char *password = json["password"];
     
+    logger->Write(F("SSID: "));
+    logger->Write(ssid);
+    logger->Write(F(" Password: "));
+    logger->Writeln(password);
+
     wifi->setSSID(ssid);
     wifi->setPassword(password);
     wifi->storeCredentials();
 
-    httpServer->send(200, F("text/plain"), F("WiFi credentials saved"));
+    httpServer->send(HTTP_STATUS_OK, F("text/plain"), F("WiFi credentials saved"));
 }
 void Controller::prepare(void){
-    logger->Writeln(F("Handling: Prepare"));
+    logger->Writeln(F("Handling: prepare"));
+    Serial.flush();
     String body = httpServer->arg("plain");
 
     StaticJsonDocument<256> json;
@@ -58,5 +66,5 @@ void Controller::prepare(void){
         commander->Send(COMMAND_PUMP, slot, percentage);
     }
 
-    httpServer->send(200, F("text/plain"), F("Preparing"));
+    httpServer->send(HTTP_STATUS_OK, F("text/plain"), F("Preparing"));
 }
