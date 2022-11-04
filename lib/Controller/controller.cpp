@@ -38,7 +38,6 @@ void Controller::setWiFi(void){
 }
 void Controller::prepare(void){
     logger->Writeln(F("Handling: prepare"));
-    Serial.flush();
     String body = httpServer->arg("plain");
 
     StaticJsonDocument<256> json;

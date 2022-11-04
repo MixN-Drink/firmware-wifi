@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "7757e71e-5cb4-4bdc-9cc5-487db0a68449",
+		"name": "MixNDrink",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9999648"
+	},
+	"item": [
+		{
+			"name": "Prepare",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"slots\": [\r\n        {\r\n            \"slot\": 3,\r\n            \"percentage\": 100\r\n        },\r\n        {\r\n            \"slot\": 0,\r\n            \"percentage\": 50\r\n        },\r\n        {\r\n            \"slot\": 2,\r\n            \"percentage\": 25\r\n        },\r\n        {\r\n            \"slot\": 1,\r\n            \"percentage\": 12\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "192.168.0.100/prepare",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"100"
+					],
+					"path": [
+						"prepare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config WIFI",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ssid\": \"nombre-de-la-red-wifi\",\r\n    \"password\": \"contrasenia-de-la-red-wifi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "192.168.0.100/config/wifi",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"100"
+					],
+					"path": [
+						"config",
+						"wifi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "192.168.0.100/ping",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"100"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
